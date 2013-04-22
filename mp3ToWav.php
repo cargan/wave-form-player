@@ -4,8 +4,9 @@ function main($source, $destination) {
   $destFileName = $destination . ".mp3";
   $output = NULL;
   $return = NULL;
-  exec("ffmpeg -y -i {$source} -acodec libmp3lame -ac 1 -ar 8000 -ab 16k $destFileName", $output, $return);
-  var_dump($output, $return);
+  $command = "avconv -i $source -b $destFileName";
+  exec($command, $output, $return);
+  var_dump($output, $return);exit;
 }
 
 var_dump($argv, $argc);
