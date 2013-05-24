@@ -1,16 +1,15 @@
 <?php
 
-function main($source, $destination) {
-  $destFileName = $destination . ".mp3";
+function main($source, $destination)
+{
+  $destFileName = $destination . ".wav";
   $output = NULL;
   $return = NULL;
-  $command = "avconv -i $source -b $destFileName";
+  $command = "avconv -i $source $destFileName";
   exec($command, $output, $return);
-  var_dump($output, $return);exit;
 }
 
-var_dump($argv, $argc);
-if (($argc != 3) ||  !file_exists($argv[1])) {
+if (($argc != 3) || !file_exists($argv[1])) {
     die('invalid arguments specified');
 }
 
