@@ -91,19 +91,18 @@ function makeWaveData($wavfilename, $destination = "./", $jsonName = false) {
                                          ;
           if ($mean > 127) $point = array_pop($blocks); else $point = array_shift($blocks);
 
-          $lineheight = round($point / 255 * HEIGHT*ZOOM);
-          $dataArray[] = $lineheight;
-          $points++;
-          $blocks = array();
+            $lineheight = round($point / 255 * HEIGHT*ZOOM);
+            $dataArray[] = $lineheight;
+            $points++;
+            $blocks = array();
         }
     }
     // close wave file
     fclose ($handle);
 
-        if (!file_exists($destination)) {
-            mkdir($destination);
-        }
-
+    if (!file_exists($destination)) {
+        mkdir($destination);
+    }
 
     file_put_contents($destination . $jsonName, json_encode($dataArray));
 }
@@ -112,7 +111,7 @@ function makeWaveData($wavfilename, $destination = "./", $jsonName = false) {
 if (($argc < 3) ||  !file_exists($argv[1])) {
     die('invalid file specified, need argument being a .wav file');
 }
-$jsonName = basename($argv[1], ".wav") . '.json';
+$jsonName = isset($argv[3]) ? $argv[3] : basename($argv[1], ".wav") . '.json';
 //wavefile, destination, json_name
 makeWaveData($argv[1], $argv[2], $jsonName);
 
