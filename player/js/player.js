@@ -8,7 +8,8 @@ $('#files a').click(function(e) {
     $('#files a.playing').removeClass('playing');
     $(this).addClass('playing');
     var title = $(this).html();
-//    makeWaveSlider(callId);
+
+    makeWaveSlider(title);
 
     $("#jquery_jplayer_1")
       .jPlayer("clearMedia")
@@ -137,47 +138,48 @@ var DataValues = {
   }
 
 
-  function makeWaveSlider(callId) {
-    var $footer = $('section.filePlayer');
-    var $foo =
-        '<div class="navbar-inner">' +
-          '<div class="playControl clearfix">' +
-            '<span class="buffering"><i class="icon-spinner icon-spin"></i> Buffering</span>' +
-            '<a class="cp-pause hidden" href="javascript:;"><i class="icon-pause"></i>'+callId+'</a>' +
-            '<a class="close-wave pull-right" href="javascript:;"><i class="icon-remove"></i></a>' +
-            '<span class="total hidden">Total time: <span class="time"></span></span>' +
-            '<span class="elapsedTime hidden">Time elapsed: <span class="time"></span></span>' +
+function makeWaveSlider(title) {
+  var $footer = $('section.filePlayer');
+  var $foo =
+      '<div class="navbar-inner">' +
+        '<div class="playControl clearfix">' +
+          '<span class="buffering"><i class="icon-spinner icon-spin"></i> Buffering</span>' +
+          '<a class="cp-pause hidden" href="javascript:;"><i class="icon-pause"></i>'+title +'</a>' +
+          '<a class="close-wave pull-right" href="javascript:;"><i class="icon-remove"></i></a>' +
+          '<span class="total hidden">Total time: <span class="time"></span></span>' +
+          '<span class="elapsedTime hidden">Time elapsed: <span class="time"></span></span>' +
+        '</div>' +
+        '<div class="music">' +
+          '<div id="slider">'+
+            '<canvas id="crCanvasSlider" height="100"></canvas>' +
           '</div>' +
-          '<div class="music">' +
-            '<div id="slider">'+
-              '<canvas id="crCanvasSlider" height="100"></canvas>' +
-            '</div>' +
-            '<canvas id="crCanvas" height="100"></canvas>' +
-          '</div>' +
-        '</div>';
+          '<canvas id="crCanvas" height="100"></canvas>' +
+        '</div>' +
+      '</div>';
 
-    $footer.html($foo);
+  $footer.html($foo);
 
-    var footer = $('section.filePlayer');
-    var width = footer.width() - 5;
-    $('#crCanvas').attr('width', width);
+  var footer = $('section.filePlayer');
+  var width = footer.width() - 5;
+  $('#crCanvas').attr('width', width);
 
-
-    DrawCR.init(callId);
-  }
+  DrawCR.init(title);
+}
 
 var DrawCR = {
-  callId: undefined,
+  file: undefined,
   data: undefined,
-  init: function(callId) {
-    DrawCR.callId = callId;
+  init: function(file) {
+    DrawCR.file = file;
     DrawCR.data = undefined;
     DrawCR.getData();
   },
   getData: function() {
-    var postData = {call_id: DrawCR.callId};
-    var url = recordingsServer+'/json.php';
-    $.getJSON(url, postData)
+      //May implement f to get remote data
+    var url = 'js/vendors/jplayer/JSONS/' + DrawCR.file;
+    console.log(url);
+
+    $.getJSON(url)
       .success(function(data) {
         if (data.error == null && data.result) {
           DrawCR.data = data.result;
@@ -191,6 +193,7 @@ var DrawCR = {
         }
       })
       .error(function(data) {
+          console.log('error retrieving file, url: ' + DrawCR.file);
       });
   },
   generateNumbers: function() {
