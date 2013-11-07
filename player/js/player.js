@@ -72,11 +72,14 @@ $("#jquery_jplayer_1").jPlayer({
 
 
 $('section.filePlayer').on('click', '.playControl a', function() {
+    var action = null;
   switch ($(this).attr('class')) {
     case 'cp-play':
+      action = 'pause';
       $("#jquery_jplayer_1").jPlayer('play');
       break;
     case 'cp-pause':
+      action = 'play';
       $("#jquery_jplayer_1").jPlayer('pause');
       break;
     case 'close-wave pull-right':
@@ -84,13 +87,13 @@ $('section.filePlayer').on('click', '.playControl a', function() {
       $("#jquery_jplayer_1").jPlayer('pause');
       break;
   }
+
   $(this)
     .toggleClass('cp-play')
     .toggleClass('cp-pause');
   $(this)
-    .find('i')
-      .toggleClass('icon-pause')
-      .toggleClass('icon-play');
+    .find('img')
+      .attr('src', 'img/'+action+'.png')
 
   return false;
 
@@ -144,7 +147,7 @@ function makeWaveSlider(title) {
       '<div class="navbar-inner">' +
         '<div class="playControl clearfix">' +
           '<span class="buffering"><i class="icon-spinner icon-spin"></i> Buffering</span>' +
-          '<a class="cp-pause hidden" href="javascript:;"><i class="icon-pause"></i>'+title +'</a>' +
+          'Playing: <a class="cp-pause hidden" href="javascript:;"><img src="img/pause.png" alt="pause" />'+title +'</a>' +
           '<a class="close-wave pull-right" href="javascript:;"><i class="icon-remove"></i></a>' +
           '<span class="total hidden">Total time: <span class="time"></span></span>' +
           '<span class="elapsedTime hidden">Time elapsed: <span class="time"></span></span>' +
@@ -175,9 +178,9 @@ var DrawCR = {
     DrawCR.getData();
   },
   getData: function() {
+      console.log(DrawCR.file);
       //May implement f to get remote data
-    var url = 'js/vendors/jplayer/JSONS/' + DrawCR.file;
-    console.log(url);
+    var url = 'js/vendors/jplayer/JSONS/' + DrawCR.file + '.json';
 
     $.getJSON(url)
       .success(function(data) {
@@ -193,7 +196,12 @@ var DrawCR = {
         }
       })
       .error(function(data) {
-          console.log('error retrieving file, url: ' + DrawCR.file);
+          $('div.playControl').append(
+            '<span class="error">' +
+              'Coresponding data was not found in server' +
+            '</span>'
+            );
+          //console.log('error retrieving file, url: ' + DrawCR.file);
       });
   },
   generateNumbers: function() {

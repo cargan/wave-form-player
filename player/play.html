@@ -8,9 +8,11 @@
     </head>
 
     <body>
+        <section class="filePlayer"></section>
+
         <ul id="files">
-            <li><a href="js/vendors/jplayer/MUSIC/TSP-01-Cro_magnon_man.ogg">TSP-01-Cro_magnon_man.ogg</a></li>
-            <li><a href="js/vendors/jplayer/MUSIC/Miaow-07-Bubble.ogg">FILE #2</a></li>
+            <li><a href="js/vendors/jplayer/MUSIC/TSP-01-Cro_magnon_man.ogg">TSP-01-Cro_magnon_man</a></li>
+            <li><a href="js/vendors/jplayer/MUSIC/Miaow-07-Bubble.ogg">file</a></li>
         </ul>
 
 
@@ -61,8 +63,57 @@
             </div>
         </div>
 
-        <section class="filePlayer">
-        </section>
+
+
+        <style>
+             div#slider {
+                background: none repeat scroll 0 0 #49AFCD;
+                border-bottom: 1px solid #EB2100;
+                border-radius: 0;
+                border-right: 2px solid #EB2100;
+                height: 100px;
+                left: 5px;
+                overflow: hidden;
+                position: absolute;
+                top: 25px;
+                width: 0;
+                z-index: 1;
+            }
+            div canvas#crCanvas {
+                display: block;
+                left: 5px;
+                position: absolute;
+                vertical-align: middle;
+            }
+            section.filePlayer {
+                top: 0;
+                left: 0;
+                margin-bottom: 0;
+                position: fixed;
+                right: 0;
+                z-index: 1030;
+                overflow: visible;
+            }
+
+            #jquery_jplayer_1, #jp_container_1 {
+                display: none;
+            }
+            ul#files {
+                margin-top: 185px;
+            }
+
+            section.filePlayer .playControl span,  section.filePlayer .playControl a {
+                margin-right: 12px;
+            }
+
+            section.filePlayer .playControl {
+                line-height: 26px;
+                vertical-align: middle;
+            }
+            section.filePlayer .playControl img {
+                vertical-align: middle;
+            }
+        </style>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/vendors/jplayer/jquery.jplayer.min.js"></script>
