@@ -184,8 +184,8 @@ var DrawCR = {
 
     $.getJSON(url)
       .success(function(data) {
-        if (data.error == null && data.result) {
-          DrawCR.data = data.result;
+        if (data) {
+          DrawCR.data = data;
           DrawCR.generateNumbers();
         } else if (data.error != null) {
           $('div.playControl').append(
