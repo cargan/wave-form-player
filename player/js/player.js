@@ -178,7 +178,7 @@ var DrawCR = {
     DrawCR.getData();
   },
   getData: function() {
-      console.log(DrawCR.file);
+      // console.log(DrawCR.file);
       //May implement f to get remote data
     var url = 'js/vendors/jplayer/JSONS/' + DrawCR.file + '.json';
 
