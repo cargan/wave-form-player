@@ -2,6 +2,7 @@ wave-form-player
 ================
 PLAYER
     You can find wave form player in action http://wave-form-player.linasziedas.lt/
+    Tested on FF, Chrome
 
 waveToJson.php
 
