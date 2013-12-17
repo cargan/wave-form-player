@@ -1,5 +1,7 @@
 wave-form-player
 ================
+PLAYER
+    You can find wave form player in action http://wave-form-player.linasziedas.lt/
 
 waveToJson.php
 
